@@ -19,12 +19,13 @@
 		<module>morning-order</module>
 		<module>morning-user</module>
 		<module>morning-product</module>
+        <module>morning-support</module>
 		<module>morning-administrator</module>
 		<module>morning-online</module>
 		<module>morning-system</module>
 		<module>morning-cms-web</module>
 		<module>morning-os-web</module>
-		<module>morning-support</module>
+
 	</modules>
 
 	<!-- 项目属性 -->

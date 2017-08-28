@@ -9,7 +9,7 @@
 		<artifactId>morning-parent</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 	</parent>
-	<name>morning-administrator</name>
+	<name>morning-support</name>
 	<url>http://maven.apache.org</url>
 	<description>morning  --  公益商城系统公共服务模块父模块</description>
 	

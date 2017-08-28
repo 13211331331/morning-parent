@@ -14,13 +14,20 @@
 	<description>morning  --  公益商城系统公共服务模块业务逻辑层接口</description>
 
 	<dependencies>
-		<!-- 0.Morning相关依赖 begin -->
-		<dependency>
-			<groupId>org.pussinboots.morning</groupId>
-			<artifactId>morning-common</artifactId>
-			<version>${morning.version}</version>
-		</dependency>
-		<!-- Morning相关依赖 end -->
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>	  <!-- mybatis-plus Mybatis增强辅助工具 -->
+        </dependency>
+        <!-- 0.Morning相关依赖 begin -->
+        <dependency>
+            <groupId>org.pussinboots.morning</groupId>
+            <artifactId>morning-common</artifactId>
+            <version>${morning.version}</version>
+            <scope>system</scope>
+            <systemPath>D:/repository/org/pussinboots/morning/morning-common/3.0.0-SNAPSHOT/morning-common-3.0.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <!-- Morning相关依赖 end -->
 
 		<dependency>
 			<groupId>com.qiniu</groupId>
