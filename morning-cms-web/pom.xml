@@ -311,80 +311,51 @@
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-administrator-facade</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-administrator-facade/3.0.0-SNAPSHOT/morning-administrator-facade-3.0.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-system-facade</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-system-facade/3.0.0-SNAPSHOT/morning-system-facade-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-administrator-service</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-administrator-service/3.0.0-SNAPSHOT/morning-administrator-service-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-system-service</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-system-service/3.0.0-SNAPSHOT/morning-system-service-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-online-facade</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-online-facade/3.0.0-SNAPSHOT/morning-online-facade-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-online-service</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-online-service/3.0.0-SNAPSHOT/morning-online-service-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-product-facade</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-product-facade/3.0.0-SNAPSHOT/morning-product-facade-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-product-service</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-product-service/3.0.0-SNAPSHOT/morning-product-service-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-support-facade</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-support-facade/3.0.0-SNAPSHOT/morning-support-facade-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<dependency>
 			<groupId>org.pussinboots.morning</groupId>
 			<artifactId>morning-support-service</artifactId>
 			<version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-support-service/3.0.0-SNAPSHOT/morning-support-service-3.0.0-SNAPSHOT.jar</systemPath>
-
         </dependency>
 		<!-- Morning相关依赖 end -->
 
@@ -393,9 +364,7 @@
             <groupId>org.pussinboots.morning</groupId>
             <artifactId>morning-common</artifactId>
             <version>${morning.version}</version>
-            <scope>system</scope>
-            <systemPath>D:/repository/org/pussinboots/morning/morning-common/3.0.0-SNAPSHOT/morning-common-3.0.0-SNAPSHOT.jar</systemPath>
-        </dependency>
+          </dependency>
 
 
         <!-- 2.SPRING相关依赖 begin√ -->
