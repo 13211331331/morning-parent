@@ -5,7 +5,7 @@ $(function() {
 		lineColor : '#5cbdaa'
 	});
 	//网站计时器
-	showsectime();
+	//showsectime();
 })
 
 /**

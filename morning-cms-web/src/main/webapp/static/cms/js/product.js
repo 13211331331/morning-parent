@@ -4,154 +4,98 @@
 function timeFormatter(value) {
 	return new Date(value).Format("yyyy-MM-dd HH:mm:ss");
 }
-function statusFormatter(value) {
-	if (value == 1) {
-		return '<span class="label label-primary">显示</span>'
-	} else if (value == 0) {
-		return '<span class="label label-danger">隐藏</span>'
+
+function picImgFormatter(value, row) {
+    return '<a href="' + imagelocation + '/' + row.picImg + '" target="_blank" title="' + row.name + '">' + value + '</a>';
+}
+
+function labelIdFormatter(value) {
+	if (value == 1){
+        return '<span class="label label-danger">热销</span>'
+	}
+	else if (value == 2){
+        return '<span class="label label-info">新品</span>'
+	}
+	else if (value == 3){
+        return '<span class="label label-primary">现货</span>'
+	}
+	else if (value == 4){
+        return '<span class="label label-warning">有赠品</span>'
 	}
 }
-function navFormatter(value) {
-	if (value == 1) {
-		return '<span class="label label-primary">显示</span>'
-	} else if (value == 0) {
-		return '<span class="label label-danger">隐藏</span>'
-	}
-}
-function topFormatter(value) {
-	if (value == 1) {
-		return '<span class="label label-danger">置顶</span>'
-	} else if (value == 0) {
-		return '<span class="label label-primary">默认</span>'
-	}
-}
-function hotFormatter(value) {
-	if (value == 1) {
-		return '<span class="label label-danger">热门</span>'
-	} else if (value == 0) {
-		return '<span class="label label-primary">默认</span>'
-	}
+
+function showInShelveFormatter(value) {
+    if (value == 1){
+        return '<span class="label label-info">已上架</span>'
+    }
+    else if (value == 0){
+        return '<span class="label label-warning">已下架</span>'
+    }
 }
 
 function actionFormatter(value, row, index) {
-    return [,
-        '<a class="edit m-r-sm text-warning" href="javascript:void(0)" title="编辑">',
-        '<i class="glyphicon glyphicon-edit"></i>',
-        '</a>',
-        '<a class="remove m-r-sm text-danger" href="javascript:void(0)" title="删除">',
-        '<i class="glyphicon glyphicon-remove"></i>',
-        '</a>',
-    ].join('');
-
+	if (row.showInShelve == 1) {
+		return [
+			'<a class="freeze m-r-sm text-info" href="javascript:void(0)" title="下架">',
+			'<i class="glyphicon glyphicon-pause"></i>',
+			'</a>',
+			'<a class="edit m-r-sm text-warning" href="javascript:void(0)" title="编辑">',
+			'<i class="glyphicon glyphicon-edit"></i>',
+			'</a>',
+			'<a class="log m-r-sm text-primary" href="javascript:void(0)" title="产品详情">',
+			'<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>',
+			'</a>',
+		].join('');
+	} else {
+		return [
+			'<a class="normal m-r-sm text-info" href="javascript:void(0)" title="上架">',
+			'<i class="glyphicon glyphicon-play"></i>',
+			'</a>',
+			'<a class="edit m-r-sm text-warning" href="javascript:void(0)" title="编辑">',
+			'<i class="glyphicon glyphicon-edit"></i>',
+			'</a>',
+			'<a class="log m-r-sm text-primary" href="javascript:void(0)" title="产品详情">',
+			'<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>',
+			'</a>',
+		].join('');
+	}
 }
-
-function detailFormatter(index, row, $detail) {
-	InitSubTable(index, row, $detail);
-}
-
-//初始化子表格(无线循环)
-InitSubTable = function(index, row, $detail) {
-	var parentid = row.categoryId;
-	var cur_table = $detail.html('<table></table>').find('table');
-	$(cur_table).bootstrapTable({
-		url : baselocation + '/product/category/gid/' + parentid,
-		method : 'get',
-		sidePagination : 'server',
-		clickToSelect : true,
-		uniqueId : "categoryId",
-		pagination : true,
-		pageSize : 10,
-		pageList : [ 10, 25 ],
-		pageNumber : 1,
-		columns : [ {
-			field : 'categoryId',
-			title : '分类编号',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true'
-		}, {
-			field : 'name',
-			title : '分类名称',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true'
-		}, {
-			field : 'sort',
-			title : '排序',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true'
-		}, {
-			field : 'status',
-			title : '状态',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true',
-			formatter : 'statusFormatter'
-		}, {
-			field : 'showInNav',
-			title : '是否导航',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true',
-			formatter : 'navFormatter'
-		}, {
-			field : 'showInTop',
-			title : '是否置顶',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true',
-			formatter : 'topFormatter'
-		}, {
-			field : 'showInHot',
-			title : '是否热门',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true',
-			formatter : 'hotFormatter'
-		}, {
-			title : '操作',
-			halign : 'center',
-			align : 'center',
-			sortable : 'true',
-			formatter : 'actionFormatter',
-			events : 'actionEvents'
-		}, ],
-		//无线循环取子表，直到子表里面没有记录
-		onExpandRow : function(index, row, $Subdetail) {
-			oInit.InitSubTable(index, row, $Subdetail);
-		}
-	});
-};
 
 window.actionEvents = {
-	'click .edit' : function(e, value, row, index) {
-		layer_show(row.name, baselocation + '/product/' + row.id + '/edit', 900, 650)
+	'click .freeze' : function(e, value, row, index) {
+		status_stop(index, row.productId);
 	},
-	'click .remove' : function(e, value, row, index) {
-		admin_delete(index, row.productId);
+	'click .normal' : function(e, value, row, index) {
+		status_start(index, row.productId);
+	},
+	'click .edit' : function(e, value, row, index) {
+		layer_show(row.name, baselocation + '/product/list/' + row.productId + '/edit', 900, 650)
+	},
+	'click .log' : function(e, value, row, index) {
+		window.location.href = baselocation + '/product/list/' + row.productId + '/detail/view';
 	}
-
 };
 
 /**
- * 隐藏分类
+ * 隐藏产品
  */
-function status_stop(e, index, value) {
-	console.info(e);
-	layer.confirm('确认要隐藏该分类吗？', {
+function status_stop(index, value) {
+	layer.confirm('确认要下架该产品吗？', {
 		btn : [ '确定', '取消' ] //按钮
 	}, function() {
 		$.ajax({
 			dataType : 'json',
 			type : 'put',
-			url : baselocation + '/product/category/' + value + '/audit',
+			url : baselocation + '/product/list/' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
-					$('#table').bootstrapTable('refresh', {
-						silent : true
+					$('#table').bootstrapTable('updateRow', {
+						index : index,
+						row : {
+                            showInShelve : 0,
+						}
 					});
-					layer.msg('该分类隐藏成功!', {
+					layer.msg('该产品下架成功!', {
 						icon : 5,
 						time : 1000
 					});
@@ -166,22 +110,25 @@ function status_stop(e, index, value) {
 }
 
 /**
- * 显示分类
+ * 上架产品
  */
 function status_start(index, value) {
-	layer.confirm('确认要显示该分类吗？', {
+	layer.confirm('确认要上架该产品吗？', {
 		btn : [ '确定', '取消' ] //按钮
 	}, function() {
 		$.ajax({
 			dataType : 'json',
 			type : 'put',
-			url : baselocation + '/product/category/' + value + '/audit',
+			url : baselocation + '/product/list/' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
-					$('#table').bootstrapTable('refresh', {
-						silent : true
+					$('#table').bootstrapTable('updateRow', {
+						index : index,
+						row : {
+                            showInShelve : 1,
+						}
 					});
-					layer.msg('该分类显示成功!', {
+					layer.msg('该产品上架成功!', {
 						icon : 6,
 						time : 1000
 					});
@@ -196,42 +143,12 @@ function status_start(index, value) {
 }
 
 /**
- * 删除分类
+ * 多选框插件
  */
-function admin_delete(index, value) {
-	layer.confirm('确认要删除该产品吗？', {
-		btn : [ '确定', '取消' ] //按钮
-	}, function() {
-		$.ajax({
-			type : 'delete',
-			dataType : 'json',
-			url : baselocation + '/product/' + value,
-			success : function(result) {
-				if (result.code == 1) {
-					$('#table').bootstrapTable('hideRow', {
-						index : index
-					});
-					layer.msg('该产品删除成功!', {
-						icon : 1,
-						time : 1000
-					});
-				} else {
-					layer.alert(result.message, {
-						icon : 2
-					});
-				}
-			}
-		})
-	});
-}
-
-
-
-var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-elems.forEach(function(html) {
-	var switchery = new Switchery(html, {
-		size : 'small'
+$(document).ready(function() {
+	$('input').iCheck({
+		checkboxClass : 'icheckbox_flat-green',
+		radioClass : 'iradio_flat-green'
 	});
 });
 
@@ -258,58 +175,54 @@ $(function() {
 			validating : 'glyphicon glyphicon-refresh'
 		},
 		fields : {
-			'name' : {
-				message : '分类名称验证失败',
+            'name' : {
+                message : '商品名称验证失败',
+                validators : {
+                    notEmpty : {
+                        message : '商品名称不能为空'
+                    },
+                }
+            },
+			'showScore' : {
+				message : '积分验证失败',
 				validators : {
 					notEmpty : {
-						message : '分类名称不能为空'
-					}
-				}
-			},
-			'code' : {
-				message : '分类标志验证失败',
-				validators : {
-					notEmpty : {
-						message : '分类标志不能为空'
-					}
-				}
-			},
-			'showNumber' : {
-				message : '显示数量验证失败',
-				validators : {
-					notEmpty : {
-						message : '分类栏显示数量不能为空'
+						message : '积分不能为空'
 					},
-					regexp : {
-						regexp : /^[0-9]*$/,
-						message : '分类栏显示数量只能为数字'
-					}
+		            regexp: {
+		                regexp: /^[0-9]*$/,
+		                message: '积分只能为数字'
+		            }
 				}
 			},
-			'width' : {
-				message : '宽度验证失败',
+			'showPrice' : {
+				message : '价钱验证失败',
 				validators : {
 					notEmpty : {
-						message : '宽度不能为空'
+						message : '价钱不能为空'
 					},
-					regexp : {
-						regexp : /^[0-9]*$/,
-						message : '宽度只能为数字'
-					}
+		            regexp: {
+		                regexp: /^[0-9]*$/,
+		                message: '价钱只能为数字'
+		            }
 				}
 			},
-			'height' : {
-				message : '高度验证失败',
-				validators : {
-					notEmpty : {
-						message : '高度不能为空'
-					},
-					regexp : {
-						regexp : /^[0-9]*$/,
-						message : '高度只能为数字'
-					}
-				}
-			},
+            'paramNames' : {
+                message : '参数名称验证失败',
+                validators : {
+                    notEmpty : {
+                        message : '参数名称不能为空'
+                    },
+                }
+            },
+            'paramValues' : {
+                message : '参数值验证失败',
+                validators : {
+                    notEmpty : {
+                        message : '参数值不能为空'
+                    },
+                }
+            },
 		}
 	})
 		.on('success.form.bv', function(e) {
@@ -322,17 +235,29 @@ $(function() {
 			// Get the BootstrapValidator instance
 			var bv = $form.data('bootstrapValidator');
 
+            ztreeObject = $.fn.zTree.getZTreeObj("ztree");
+            var nodes = ztreeObject.getCheckedNodes(true);
+            var categoryId = '';
+            if (nodes != null && nodes.length > 0) {
+                for (var i = 0; i < nodes.length; i++) {
+                    categoryId = nodes[i].categoryId;
+                }
+            }
+            var params = '';
+            params += $form.serialize();
+            params += "&categoryId=" + categoryId;
+
 			var method = $('#form').attr('data-method');
 			// Use Ajax to submit form data
 			if (method == 'put') {
 				$.ajax({
-					data : $form.serialize(),
+					data : params,
 					dataType : 'json',
 					type : 'put',
 					url : $form.attr('action'),
 					success : function(result) {
 						if (result.code == 1) {
-							parent.layer.msg("更新分类成功!", {
+							parent.layer.msg("更新商品成功!", {
 								shade : 0.3,
 								time : 1500
 							}, function() {
@@ -354,7 +279,7 @@ $(function() {
 					url : $form.attr('action'),
 					success : function(result) {
 						if (result.code == 1) {
-							parent.layer.msg("创建分类成功!", {
+							parent.layer.msg("创建商品成功!", {
 								shade : 0.3,
 								time : 1500
 							}, function() {
@@ -371,3 +296,89 @@ $(function() {
 			}
 		});
 })
+
+/**
+ * 查看按钮
+ */
+$(function() {
+    $('.view-button').on("click", function() {
+        if ($('input[name="picImg"]').val() != null && $('input[name="picImg"]').val() != "") {
+            window.open(imagelocation + '/' + $('input[name="picImg"]').val());
+        }
+    })
+})
+
+/**
+ * 图片上传
+ */
+$(function() {
+    $('.upload-button').on("click", function() {
+        parent.layer.msg("图片上传成功!", {
+            shade : 0.3,
+            time : 1500
+        });
+        $('input[name="picImg"]').val("images/goods/20170226/1471797894445.jpg");
+    })
+})
+
+var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+elems.forEach(function(html) {
+    var switchery = new Switchery(html, {
+        size : 'small'
+    });
+});
+
+/**
+ * 初始化菜单树
+ */
+var ztreeObject;
+var setting = {
+    data : {
+        simpleData : {
+            enable : true,
+            idKey : "categoryId",
+            pIdKey : "parentId",
+            rootPId : 0
+        },
+        key : {
+            name : 'name',
+            title : 'name'
+        }
+    },
+    check : {
+        enable : true,
+        chkboxType:  { "Y": "", "N": "" },
+		chkStyle:"radio",
+        radioType : "all"
+    }
+};
+$(function() {
+    treedata = eval('(' + treedata + ')');
+    ztreeObject = $.fn.zTree.init($("#ztree"), setting, treedata);
+    //展开所有节点
+    ztreeObject.expandAll(true);
+})
+
+function deleteParamInput(index){
+    $("#"+index).remove();
+    $("div.paramFormGroup:first > label").html("商品参数：");
+}
+function addParamInput() {
+    var id=$("div.paramFormGroup").length-1;
+    var html="<div class=\"form-group m-t paramFormGroup\" id=\""+id+"\">" +
+        "                  <label class=\"col-sm-2 col-xs-offset-1 control-label\"></label>" +
+        "                  <div class=\"col-sm-2\">" +
+        "                    <input type=\"text\" class=\"form-control\" name=\"paramNames\">" +
+        "                  </div>" +
+        "                  <div class=\"col-sm-5\">" +
+        "                    <input type=\"text\" class=\"form-control\" name=\"paramValues\">" +
+        "                  </div>" +
+        "                  <div class=\"col-sm-1\">" +
+        "                    <button type=\"button\" class=\"btn btn-default\" onclick=\"deleteParamInput("+id+")\"><i class=\"glyphicon glyphicon-minus\"></i></button>" +
+        "                  </div>" +
+        "                </div>";
+    $("div.paramFormGroup:last").before(html);
+    $("div.paramFormGroup > label").html("");
+    $("div.paramFormGroup:first > label").html("商品参数：");
+}

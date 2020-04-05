@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>分类管理 - 猫宁Morning</title>
+<title>订单管理 - 叮咚Morning</title>
 <link rel="stylesheet" href="${ctxsta}/common/bootstrap-table/bootstrap-table.min.css" />
 </head>
 
@@ -22,11 +22,11 @@
               <div class="example-wrap">
                 <div class="example">
                   <div id="toolbar" class="btn-group m-t-sm">
-                    <shiro:hasPermission name="product:category:create">
-                      <button type="button" class="btn btn-default"  title="新增产品" onclick="layer_show('新增产品','${ctx}/product/create','800','700')"> <i class="glyphicon glyphicon-plus"></i> </button>
+                    <shiro:hasPermission name="product:list:add">
+                      <button type="button" class="btn btn-default"  title="创建产品" onclick="layer_show('创建产品','${ctx}/product/list/create','800','700')"> <i class="glyphicon glyphicon-plus"></i> </button>
                     </shiro:hasPermission>
                   </div>
-                    <table id="table"
+                  <table id="table"
                          data-toggle="table"
                          data-height="600"
                          data-search="true"
@@ -35,23 +35,27 @@
                          data-show-export="true"
                          data-show-pagination-switch="true"
                          data-show-columns="true"
-                         data-detail-formatter="detailFormatter"
-                         data-url="${ctx}/product/list"
+                         data-url="${ctx}/product/list/"
+                         data-pagination="true"
                          data-page-size="20"
                          data-page-list="[20, 50, 100, 200]"
                          data-side-pagination="server"
                          data-striped="true"
-                         data-pagination="true"
                          data-sort-order="desc"
                          data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th data-field="productNumber" data-halign="center" data-align="center" data-sortable="true">商品编号</th>
-                        <th data-field="name" data-halign="center" data-align="left" data-sortable="true">商品名称</th>
-                        <th data-field="showPrice" data-halign="center" data-align="center" data-sortable="true">商品价格</th>
-                        <th data-field="showInTop" data-formatter="topFormatter" data-halign="center" data-align="center" data-sortable="true">是否置顶</th>
-                        <th data-field="showInNav" data-formatter="navFormatter" data-halign="center" data-align="center" data-sortable="true">是否导航</th>
-                        <th data-field="showInHot" data-formatter="hotFormatter" data-halign="center" data-align="center" data-sortable="true">是否热门</th>
+                        <th data-field="productId" data-halign="center" data-align="center" data-sortable="true">商品id</th>
+                        <th data-field="productNumber" data-halign="center" data-align="center" data-sortable="true">商品号码</th>
+                        <th data-field="labelId" data-formatter="labelIdFormatter" data-halign="center" data-align="center" data-sortable="true">标签</th>
+                        <th data-field="name" data-halign="center" data-align="center" data-sortable="true">商品名称</th>
+                        <th data-field="picImg" data-formatter="picImgFormatter" data-halign="center" data-align="center" data-sortable="true">商品图片</th>
+                        <th data-field="showScore" data-halign="center" data-align="center" data-sortable="true">积分</th>
+                        <th data-field="showPrice" data-halign="center" data-align="center" data-sortable="true">单价</th>
+                        <th data-field="introduce" data-halign="center" data-align="center" data-sortable="true">描述</th>
+                        <th data-field="showInShelve" data-formatter="showInShelveFormatter" data-halign="center" data-align="center" data-sortable="true">是否上架</th>
+                        <th data-field="createTime" data-formatter="timeFormatter" data-halign="center" data-align="center" data-sortable="true">生成时间</th>
+                        <th data-field="updateTime" data-formatter="timeFormatter" data-halign="center" data-align="center" data-sortable="true">更新时间</th>
                         <th data-formatter="actionFormatter" data-events="actionEvents" data-halign="center" data-align="center" data-sortable="true">操作</th>
                       </tr>
                     </thead>
