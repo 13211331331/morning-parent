@@ -1,7 +1,6 @@
 package org.pussinboots.morning.order.service;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.service.IService;
 import org.pussinboots.morning.common.base.BasePageDTO;
 import org.pussinboots.morning.common.support.page.PageInfo;
 import org.pussinboots.morning.order.entity.Order;
@@ -9,14 +8,14 @@ import org.pussinboots.morning.order.entity.OrderShipment;
 import org.pussinboots.morning.order.pojo.vo.OrderShoppingCartVO;
 import org.pussinboots.morning.order.pojo.vo.OrderVO;
 
-import com.baomidou.mybatisplus.service.IService;
+import java.util.List;
 
 /**
  * 
 * 项目名称：morning-order-facade   
 * 类名称：IOrderService   
 * 类描述：Order / 订单表 业务逻辑层接口      
-* 创建人：陈星星   
+* 创建人：yeungchihang
 * 创建时间：2017年5月10日 上午10:31:08   
 *
  */
@@ -75,4 +74,20 @@ public interface IOrderService extends IService<Order> {
 	 * @return
 	 */
 	Integer updateShipmentTime(Long orderNumber, Integer shipmentTime, Long userId);
+
+    /**
+     * 根据分页信息/搜索内容查找订单列表
+     * @param pageInfo 分页信息
+     * @param search 搜索内容
+     * @return
+     */
+    BasePageDTO<Order> listByPage(PageInfo pageInfo, String search);
+
+    Integer updateCancelOrder(Long orderId, String adminId);
+
+	OrderVO getOrderById(Long orderId);
+
+    Integer updateOrder(Order order, OrderShipment orderShipment, String userName);
+
+    Integer updateOrderAmountScoreNumber(Long orderId);
 }
