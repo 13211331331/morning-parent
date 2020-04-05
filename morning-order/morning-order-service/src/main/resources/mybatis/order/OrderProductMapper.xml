@@ -54,4 +54,61 @@
     		#{shoppingCart.productAmount})
     	</foreach>
     </insert>
+
+	<select id="listByPage" resultType="org.pussinboots.morning.order.entity.OrderProduct">
+		SELECT
+		order_product_id as orderProductId,
+		order_id as orderId,
+		product_number as productNumber,
+		name,
+        pic_img as picImg,
+		product_spec_number as productSpecNumber,
+		product_spec_name as productSpecName,
+		price,
+		score,
+		buy_number as buyNumber,
+		product_score as productScore,
+		product_amount as productAmount,
+		comment_status as commentStatus
+		FROM
+		os_order_product
+		<where>
+			order_id = #{orderId}
+			<if test="search != null">
+				AND (
+                product_number LIKE '%' #{search} '%'
+				OR name LIKE '%' #{search} '%'
+				OR product_spec_name LIKE '%' #{search} '%'
+				OR price LIKE '%' #{search} '%'
+				OR buy_number LIKE '%' #{search} '%'
+				OR product_amount LIKE '%' #{search} '%'
+				)
+			</if>
+			<if test="pageInfo.sort != null">
+				ORDER BY ${pageInfo.sort} ${pageInfo.order}
+			</if>
+		</where>
+	</select>
+
+	<select id="listByOrderId" resultType="org.pussinboots.morning.order.entity.OrderProduct">
+		SELECT
+		order_product_id as orderProductId,
+		order_id as orderId,
+		product_number as productNumber,
+		name,
+		pic_img as picImg,
+		product_spec_number as productSpecNumber,
+		product_spec_name as productSpecName,
+		price,
+		score,
+		buy_number as buyNumber,
+		product_score as productScore,
+		product_amount as productAmount,
+		comment_status as commentStatus
+		FROM
+		os_order_product
+		<where>
+			order_id = #{orderId}
+		</where>
+	</select>
 </mapper>

@@ -40,6 +40,7 @@
   	<resultMap type="org.pussinboots.morning.order.pojo.vo.OrderVO" id="OrderVOsResultMap">
   		<id column="order_id" property="orderId" />
 		<result column="order_number" property="orderNumber" />
+		<result column="user_id" property="userId" />
 		<result column="pay_type" property="payType" />
 		<result column="shipment_time" property="shipmentTime" />
 		<result column="shipment_type" property="shipmentType" />
@@ -50,6 +51,7 @@
 		<result column="order_amount" property="orderAmount" />
 		<result column="order_score" property="orderScore" />
 		<result column="pay_amount" property="payAmount" />
+		<result column="create_time" property="createTime" />
     	<collection property="orderProducts" ofType="org.pussinboots.morning.order.entity.OrderProduct">
 			<result column="product_number" property="productNumber" />
 			<result column="name" property="name" />
@@ -61,12 +63,14 @@
 			<result column="buy_number" property="buyNumber" />
 			<result column="product_score" property="productScore" />
 			<result column="product_amount" property="productAmount" />
+			<result column="comment_status" property="commentStatus" />
   		</collection>
   	</resultMap>	
   	
   	<resultMap type="org.pussinboots.morning.order.pojo.vo.OrderVO" id="OrderVOResultMap">
 		<id column="order_id" property="orderId" />
 		<result column="order_number" property="orderNumber" />
+		<result column="user_id" property="userId" />
 		<result column="pay_type" property="payType" />
 		<result column="shipment_time" property="shipmentTime" />
 		<result column="shipment_type" property="shipmentType" />
@@ -78,6 +82,7 @@
 		<result column="order_score" property="orderScore" />
 		<result column="pay_amount" property="payAmount" />
 		<result column="buyNumber" property="buyNumber" />
+		<result column="create_time" property="createTime" />
         <association property="orderShipment" resultMap="OrderShipmentResultMap"></association>    
     	<collection property="orderProducts" ofType="org.pussinboots.morning.order.entity.OrderProduct">
 			<result column="product_number" property="productNumber" />
@@ -90,6 +95,7 @@
 			<result column="buy_number" property="buyNumber" />
 			<result column="product_score" property="productScore" />
 			<result column="product_amount" property="productAmount" />
+			<result column="comment_status" property="commentStatus" />
   		</collection>
     	<collection property="orderStatusList" ofType="org.pussinboots.morning.order.entity.OrderStatus">
 			<result column="order_status" property="orderStatus" />
@@ -116,7 +122,7 @@
     		create_time, 
     		order_amount, 
     		order_score, 
-    		pay_amount, 
+    		pay_amount,
 		    product_number, 
 		    name, 
 		    pic_img, 
@@ -126,7 +132,8 @@
 		    score, 
 		    p.buy_number, 
 		    product_score, 
-		    product_amount
+		    product_amount,
+			comment_status
     	FROM (
 	    	SELECT
 	    		*
@@ -245,4 +252,94 @@
     		order_number = #{orderNumber}
     	AND user_id = #{userId}
     </select>
+
+	<!-- 根据订单编号查找订单信息 -->
+	<select id="getOrderById" resultMap="OrderVOResultMap">
+		SELECT
+		o.order_id,
+		user_id,
+		order_number,
+		pay_type,
+		shipment_time,
+		shipment_type,
+		shipment_amount,
+		invoice_type,
+		invoice_title,
+		o.order_status AS orderStatus,
+		o.create_time,
+		order_amount,
+		order_score,
+		pay_amount,
+		o.buy_number AS buyNumber,
+		product_number,
+		name,
+		pic_img,
+		product_spec_number,
+		product_spec_name,
+		price,
+		score,
+		order_shipment_id,
+		user_name,
+		user_phone,
+		province_id,
+		province_name,
+		city_id,
+		city_name,
+		district_id,
+		district_name,
+		user_adress,
+		user_zipcode,
+		p.buy_number,
+		product_score,
+		product_amount,
+		t.order_status,
+		t.create_time
+		FROM
+		os_order o
+		LEFT JOIN os_order_shipment s ON o.order_id = s.order_id
+		LEFT JOIN os_order_product p ON o.order_id = p.order_id
+		LEFT JOIN os_order_status t ON o.order_id = t.order_id
+		WHERE
+		o.order_id = #{orderId}
+	</select>
+
+	<select id="listByPage" resultType="org.pussinboots.morning.order.entity.Order">
+		SELECT
+		order_id as orderId,
+		order_number as orderNumber,
+		user_id as userId,
+		pay_type as payType,
+		shipment_time as shipmentTime,
+		shipment_type as shipmentType,
+	  	shipment_amount as shipmentAmount,
+		invoice_type as invoiceType,
+		order_status as orderStatus,
+		create_time as createTime,
+		update_time as updateTime,
+		order_amount as orderAmount,
+		order_score as orderScore,
+		pay_amount as payAmount,
+		buy_number as buyNumber
+		FROM
+		os_order
+		<where>
+			1=1
+			<if test="search != null">
+				AND (
+				order_number LIKE '%' #{search} '%'
+				OR user_id LIKE '%' #{search} '%'
+				OR pay_type LIKE '%' #{search} '%'
+				OR shipment_type LIKE '%' #{search} '%'
+				OR order_status LIKE '%' #{search} '%'
+				OR create_time LIKE '%' #{search} '%'
+				OR update_time LIKE '%' #{search} '%'
+				OR pay_amount LIKE '%' #{search} '%'
+				OR buy_number LIKE '%' #{search} '%'
+				)
+			</if>
+			<if test="pageInfo.sort != null">
+				ORDER BY ${pageInfo.sort} ${pageInfo.order}
+			</if>
+		</where>
+	</select>
 </mapper>
