@@ -357,6 +357,18 @@
 			<artifactId>morning-support-service</artifactId>
 			<version>${morning.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.pussinboots.morning</groupId>
+            <artifactId>morning-order-facade</artifactId>
+            <version>${morning.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pussinboots.morning</groupId>
+            <artifactId>morning-order-service</artifactId>
+            <version>${morning.version}</version>
+        </dependency>
+
 		<!-- Morning相关依赖 end -->
 
         <!-- 0.Morning相关依赖 begin -->
