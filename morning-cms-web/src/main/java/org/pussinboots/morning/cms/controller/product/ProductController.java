@@ -70,7 +70,7 @@ public class ProductController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation(value = "更新类目页面", notes = "更新类目页面")
-	@RequiresPermissions("product:category:edit")
+	@RequiresPermissions("product:list:edit")
 	@GetMapping(value = "/{id}/edit")
 	public String getUpdatePage(Model model, @PathVariable("id") Long id) {
 		// 类目信息
@@ -88,7 +88,7 @@ public class ProductController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation(value = "更新类目信息", notes = "根据url类目ID来指定更新对象,并根据传过来的类目信息来更新类目信息")
-	@RequiresPermissions("product:category:edit")
+	@RequiresPermissions("product:list:edit")
 	@PutMapping(value = "/{id}")
 	@ResponseBody
 	public Object update(Product product, @PathVariable("categoryId") Long categoryId) {
@@ -107,7 +107,7 @@ public class ProductController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation(value = "创建类目页面", notes = "创建类目页面")
-	@RequiresPermissions("product:category:create")
+	@RequiresPermissions("product:list:create")
 	@GetMapping(value = "/create")
 	public String getCreatePage(Model model) {
 		// 类目信息
@@ -121,7 +121,7 @@ public class ProductController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation(value = "创建类目", notes = "创建类目")
-	@RequiresPermissions("product:category:create")
+	@RequiresPermissions("product:list:create")
 	@PostMapping(value = "")
 	@ResponseBody
 	public Object insert(Product product) {
@@ -134,4 +134,22 @@ public class ProductController extends BaseController {
 			return new CmsResult(CommonReturnCode.UNAUTHORIZED);
 		}
 	}
+
+    /**
+     * DELETE 删除角色
+     * @return
+     */
+    @ApiOperation(value = "删除产品", notes = "根据ID删除")
+    @RequiresPermissions("product:list:delete")
+    @DeleteMapping(value = "/{id}")
+    @ResponseBody
+    public Object delete(@PathVariable("id") Long id) {
+        AuthorizingUser authorizingUser = SingletonLoginUtils.getUser();
+        if (authorizingUser != null) {
+            productService.deleteById(id);
+            return new CmsResult(CommonReturnCode.SUCCESS, 1);
+        } else {
+            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
+        }
+    }
 }
