@@ -46,11 +46,10 @@
                          data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th data-field="categoryId" data-halign="center" data-align="center" data-sortable="true">分类编号</th>
-                        <th data-field="name" data-halign="center" data-align="center" data-sortable="true">分类名称</th>
-                        <th data-field="sort" data-halign="center" data-align="center" data-sortable="true">排序</th>
-                        <th data-field="status" data-formatter="statusFormatter" data-halign="center" data-align="center" data-sortable="true">状态</th> 
-                        <th data-field="showInNav" data-formatter="navFormatter" data-halign="center" data-align="center" data-sortable="true">是否导航</th> 
+                        <th data-field="productNumber" data-halign="center" data-align="center" data-sortable="true">商品编号</th>
+                        <th data-field="name" data-halign="center" data-align="center" data-sortable="true">商品名称</th>
+                        <th data-field="showPrice" data-halign="center" data-align="center" data-sortable="true">商品价格</th>
+                        <th data-field="showInNav" data-formatter="navFormatter" data-halign="center" data-align="center" data-sortable="true">是否导航</th>
                         <th data-field="showInTop" data-formatter="topFormatter" data-halign="center" data-align="center" data-sortable="true">是否置顶</th> 
                         <th data-field="showInHot" data-formatter="hotFormatter" data-halign="center" data-align="center" data-sortable="true">是否热门</th> 
                         <th data-formatter="actionFormatter" data-events="actionEvents" data-halign="center" data-align="center" data-sortable="true">操作</th>
