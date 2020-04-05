@@ -65,4 +65,16 @@
 			product_number = #{productNumber}
 		AND	show_in_shelve = #{status}	
 	</select>
+
+
+    <!-- 根据类目ID列表、分类、排序查找商品列表及标签（分类查找） -->
+    <select id="lisByPage" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        os_product c
+        WHERE
+        1=1
+    </select>
+
 </mapper>

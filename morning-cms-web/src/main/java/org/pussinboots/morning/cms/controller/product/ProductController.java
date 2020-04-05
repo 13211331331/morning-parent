@@ -1,0 +1,137 @@
+package org.pussinboots.morning.cms.controller.product;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.pussinboots.morning.cms.common.result.CmsPageResult;
+import org.pussinboots.morning.cms.common.result.CmsResult;
+import org.pussinboots.morning.cms.common.security.AuthorizingUser;
+import org.pussinboots.morning.cms.common.util.SingletonLoginUtils;
+import org.pussinboots.morning.common.base.BaseController;
+import org.pussinboots.morning.common.base.BasePageDTO;
+import org.pussinboots.morning.common.constant.CommonReturnCode;
+import org.pussinboots.morning.common.support.page.PageInfo;
+import org.pussinboots.morning.product.entity.Category;
+import org.pussinboots.morning.product.entity.Product;
+import org.pussinboots.morning.product.service.ICategoryService;
+import org.pussinboots.morning.product.service.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * 
+* 项目名称：morning-cms-web Maven Webapp   
+* 类名称：ProductCategoryController   
+* 类描述：分类管理表示层控制器          
+* 创建人：陈星星   
+* 创建时间：2017年5月20日 下午3:08:25   
+*
+ */
+@Controller
+@RequestMapping(value = "/product")
+@Api(value = "分类管理", description = "分类管理")
+public class ProductController extends BaseController {
+	
+	@Autowired
+	private ICategoryService categoryService;
+    @Autowired
+	private IProductService productService;
+
+	/**
+	 * GET 分类管理页面
+	 * @return
+	 */
+	@ApiOperation(value = "分类管理页面", notes = "分类管理页面")
+	@RequiresPermissions("product:list:view")
+	@GetMapping(value = "/list/view")
+	public String getAdvertPage(Model model) {
+		return "/modules/product/product_list";
+	}
+	
+	/**
+	 * GET 分类列表,根据父类目ID
+	 * @return
+	 */
+	@ApiOperation(value = "获取分类列表", notes = "根据分页信息/搜索内容/父类目ID获取分类列表")  
+	@RequiresPermissions("product:list:view")
+	@GetMapping(value = "/list")
+	@ResponseBody
+	public Object listAdvert(PageInfo pageInfo, @RequestParam(required = false, value = "search") String search) {
+		BasePageDTO<Product> basePageDTO = productService.listByPage(pageInfo, search);
+		return new CmsPageResult(basePageDTO.getList(), basePageDTO.getPageInfo().getTotal());
+	}
+	
+
+	
+	/**
+	 * GET 更新类目页面
+	 * @return
+	 */
+	@ApiOperation(value = "更新类目页面", notes = "更新类目页面")
+	@RequiresPermissions("product:category:edit")
+	@GetMapping(value = "/{id}/edit")
+	public String getUpdatePage(Model model, @PathVariable("id") Long id) {
+		// 类目信息
+		Product product = productService.selectById(id);
+		model.addAttribute("product", product);
+		// 上级类目信息
+		//Category parentCategory = categoryService.selectById(category.getParentId());
+		//model.addAttribute("parentCategory", parentCategory);
+		
+		return "/modules/category/product_category_update";
+	}
+	
+	/**
+	 * PUT 更新类目信息
+	 * @return
+	 */
+	@ApiOperation(value = "更新类目信息", notes = "根据url类目ID来指定更新对象,并根据传过来的类目信息来更新类目信息")
+	@RequiresPermissions("product:category:edit")
+	@PutMapping(value = "/{id}")
+	@ResponseBody
+	public Object update(Product product, @PathVariable("categoryId") Long categoryId) {
+
+		AuthorizingUser authorizingUser = SingletonLoginUtils.getUser();
+		if (authorizingUser != null) {
+			productService.updateById(product);
+			return new CmsResult(CommonReturnCode.SUCCESS, 1);
+		} else {
+			return new CmsResult(CommonReturnCode.UNAUTHORIZED);
+		}
+	}
+	
+	/**
+	 * GET 创建类目页面
+	 * @return
+	 */
+	@ApiOperation(value = "创建类目页面", notes = "创建类目页面")
+	@RequiresPermissions("product:category:create")
+	@GetMapping(value = "/create")
+	public String getCreatePage(Model model) {
+		// 类目信息
+		//Category category = categoryService.selectById(categoryId);
+		//model.addAttribute("category", category);
+		return "/modules/category/product_category_create";
+	}
+	
+	/**
+	 * POST 创建类目
+	 * @return
+	 */
+	@ApiOperation(value = "创建类目", notes = "创建类目")
+	@RequiresPermissions("product:category:create")
+	@PostMapping(value = "")
+	@ResponseBody
+	public Object insert(Product product) {
+		AuthorizingUser authorizingUser = SingletonLoginUtils.getUser();
+		if (authorizingUser != null) {
+			// TODO 对类目名称进行唯一性校验
+			productService.insert(product);
+			return new CmsResult(CommonReturnCode.SUCCESS);
+		} else {
+			return new CmsResult(CommonReturnCode.UNAUTHORIZED);
+		}
+	}
+}
