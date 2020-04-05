@@ -20,4 +20,19 @@
         label_id AS labelId, label_name AS labelName, status, sort, create_time AS createTime, create_by AS createBy, update_time AS updateTime, update_by AS updateBy, remarks
     </sql>
 
+	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		label_id,
+		label_name,
+		status,
+		sort,
+		create_time,
+		create_by,
+		update_time,
+		update_by,
+		remarks
+		FROM
+		os_label
+	</select>
+
 </mapper>

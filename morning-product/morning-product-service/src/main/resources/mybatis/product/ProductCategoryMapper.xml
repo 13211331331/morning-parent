@@ -224,5 +224,21 @@
  		</where> 	
 		ORDER BY 
 			${pageInfo.sort} ${pageInfo.order}
-    </select>	
+    </select>
+
+	<select id="getByProductId" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM
+		os_product_category
+		<where>
+			product_id = #{productId}
+		</where>
+	</select>
+
+	<insert id="insertProductCategory" parameterType="org.pussinboots.morning.product.entity.ProductCategory">
+		INSERT INTO
+		os_product_category
+		(product_id, category_id, create_time, create_by) VALUES (#{productId},#{categoryId},#{createTime},#{createBy})
+	</insert>
 </mapper>

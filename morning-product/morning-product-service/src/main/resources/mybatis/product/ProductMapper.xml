@@ -33,7 +33,16 @@
     <sql id="Base_Column_List">
         product_id AS productId, product_number AS productNumber, label_id AS labelId, name, show_price AS showPrice, introduce, pic_img AS picImg, show_in_top AS showInTop, show_in_nav AS showInNav, show_in_hot AS showInHot, show_in_shelve AS showInShelve, create_time AS createTime, create_by AS createBy, shelve_time AS shelveTime, shelve_by AS shelveBy, update_time AS updateTime, update_by AS updateBy, search_key AS searchKey, page_title AS pageTitle, page_description AS pageDescription, page_keyword AS pageKeyword, remarks
     </sql>
-    
+
+	<select id="getIdByNumber" resultType="Long">
+		SELECT
+		p.product_id
+		FROM
+		os_product p
+		WHERE
+		product_number = #{productNumber}
+	</select>
+
     <!-- 根据商品编号和状态查找商品 -->
 	<select id="getByNumber" resultType="org.pussinboots.morning.product.pojo.vo.ProductVO">
 		SELECT
@@ -66,15 +75,132 @@
 		AND	show_in_shelve = #{status}	
 	</select>
 
+	<select id="listByPage" resultMap="BaseResultMap">
+		SELECT
+			product_id,
+			product_number,
+			label_id,
+			name,
+			show_score,
+			show_price,
+			introduce,
+			pic_img,
+			show_in_top,
+			show_in_nav,
+			show_in_hot,
+			show_in_shelve,
+			create_time,
+			create_by,
+			shelve_time,
+			shelve_by,
+			update_time,
+			update_by,
+			search_key,
+			page_title,
+			page_description,
+			page_keyword
+		FROM
+		os_product
+		<where>
+			1=1
+			<!--<if test="search != null">
+				AND (
+				product_number LIKE '%' #{search} '%'
+				OR label_id LIKE '%' #{search} '%'
+				OR name LIKE '%' #{search} '%'
+				OR show_score LIKE '%' #{search} '%'
+				OR show_price LIKE '%' #{search} '%'
+				OR introduce LIKE '%' #{search} '%'
+				OR create_time LIKE '%' #{search} '%'
+				OR update_time LIKE '%' #{search} '%'
+				OR show_in_shelve LIKE '%' #{search} '%'
+				)
+			</if>
+			<if test="pageInfo.sort != null">
+				ORDER BY ${pageInfo.sort} ${pageInfo.order}
+			</if>-->
+		</where>
+	</select>
 
-    <!-- 根据类目ID列表、分类、排序查找商品列表及标签（分类查找） -->
-    <select id="lisByPage" resultMap="BaseResultMap">
-        SELECT
-        *
-        FROM
-        os_product c
-        WHERE
-        1=1
-    </select>
+	<select id="getByProductId" resultMap="BaseResultMap">
+		SELECT
+			product_id,
+			product_number,
+			label_id,
+			name,
+			show_score,
+			show_price,
+			introduce,
+			pic_img,
+			show_in_top,
+			show_in_nav,
+			show_in_hot,
+			show_in_shelve,
+			create_time,
+			create_by,
+			shelve_time,
+			shelve_by,
+			update_time,
+			update_by,
+			search_key,
+			page_title,
+			page_description,
+			page_keyword
+		FROM
+		os_product
+		WHERE
+		product_id = #{productId}
+	</select>
 
+	<insert id="insertProduct" parameterType="org.pussinboots.morning.product.entity.Product">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="productId">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+		INSERT INTO
+		os_product(
+			product_number,
+			label_id,
+			name,
+			show_score,
+			show_price,
+			introduce,
+			pic_img,
+			show_in_top,
+			show_in_nav,
+			show_in_hot,
+			show_in_shelve,
+			create_time,
+			create_by,
+			shelve_time,
+			shelve_by,
+			update_time,
+			update_by,
+			search_key,
+			page_title,
+			page_description,
+			page_keyword
+		)VALUES (
+			#{productNumber},
+			#{labelId},
+			#{name},
+			#{showScore},
+			#{showPrice},
+			#{introduce},
+			#{picImg},
+			#{showInTop},
+			#{showInNav},
+			#{showInHot},
+			#{showInShelve},
+			#{createTime},
+			#{createBy},
+			#{shelveTime},
+			#{shelveBy},
+			#{updateTime},
+			#{updateBy},
+			#{searchKey},
+			#{pageTitle},
+			#{pageDescription},
+			#{pageKeyword}
+		)
+	</insert>
 </mapper>

@@ -21,4 +21,32 @@
         product_parameter_id AS productParameterId, product_id AS productId, name, value, status, sort, create_time AS createTime, create_by AS createBy, update_time AS updateTime, update_by AS updateBy
     </sql>
 
+	<delete id="deleteByProductId">
+		DELETE
+		FROM
+		os_product_parameter
+		<where>
+			product_id = #{productId}
+		</where>
+	</delete>
+
+	<insert id="insertProductParameters" parameterType="java.util.List">
+		INSERT INTO
+		os_product_parameter
+		(product_id, name, value, status, sort, create_time, create_by, update_time, update_by)
+		VALUES
+		<foreach collection="list" item="item"  separator =",">
+			(
+			#{item.productId},
+			#{item.name},
+			#{item.value},
+			#{item.status},
+			#{item.sort},
+			#{item.createTime},
+			#{item.createBy},
+			#{item.updateTime},
+			#{item.updateBy}
+			)
+		</foreach>
+	</insert>
 </mapper>

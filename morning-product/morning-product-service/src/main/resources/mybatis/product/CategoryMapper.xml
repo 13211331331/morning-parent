@@ -226,4 +226,26 @@
 				ORDER BY ${pageInfo.sort} ${pageInfo.order}
 			</if>  
     </select>
+
+	<!-- 根据分页信息/搜索内容/父类目ID查找分类列表 -->
+	<select id="listByStatus" resultType="org.pussinboots.morning.product.entity.Category">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			os_category
+		WHERE
+			status = #{status}
+	</select>
+
+	<!-- 根据分页信息/搜索内容/父类目ID查找分类列表 -->
+	<select id="listTreeByStatus" resultType="org.pussinboots.morning.product.pojo.vo.ProductCategoryVO">
+		SELECT
+			category_id AS categoryId,
+			parent_id AS parentId,
+			name AS name
+		FROM
+		os_category
+		WHERE
+		status = #{status}
+	</select>
 </mapper>
