@@ -193,7 +193,6 @@
 }
 
 .brick-list, .brick-promo-list {
-	height: 614px;
 	margin: 0;
 	padding: 0;
 	list-style-type: none
@@ -1415,7 +1414,7 @@
 }
 
 .home-brick-row-2-box {
-	height: 686px
+
 }
 
 .home-recm-box {

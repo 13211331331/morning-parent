@@ -7,7 +7,7 @@
     <div class="row J_recommend_hot">
       <div class="col-md-12 col-sm-12">
         <div class="home-brick-box home-brick-row-2-box xm-plain-box" id="category-${productCategoryStat.index}">
-          <div class="box-hd">
+          <div class="box-hd" style="margin-bottom: 10px;">
             <h2 class="title">${category.name}</h2>
             <div class="more J_brickNav">
               <ul class="tab-list J_brickTabSwitch">
