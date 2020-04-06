@@ -19,17 +19,17 @@
           </div>
           <div class="box-bd J_brickBd">
             <div class="row">
-              <div class="span4 span-first">
+              <!--<div class="span4 span-first">
                 <ul class="brick-promo-list clearfix">
                   <c:forEach items="${category.categoryAdverts}" var="categoryAdvert">
                     <li class="brick-item2 brick-item-m" data-gid="${categoryAdvert.categoryAdvertId}"> <a title="${categoryAdvert.title}" href="${categoryAdvert.href}" target="_blank"><img src="${ctximg}/${categoryAdvert.picImg}" alt="${categoryAdvert.title}"></a> </li>
                   </c:forEach>
                 </ul>
-              </div>
-              <div class="span16">
+              </div>-->
+              <div class="span16" style="width: 100%;">
                 <div class="tab-container" id="category-${productCategoryStat.index}-content">
                   <c:forEach items="${category.childrenCategorys}" var="category" varStatus="categoryStat">
-                    <ul class="brick-list">
+                    <ul class="brick-list" style="width: 100%;">
                       <c:forEach items="${category.products}" var="product" varStatus="productStat">
                         <c:if test="${!productStat.last}">
                           <li class="brick-item brick-item-m" data-gid="${product.productNumber}">

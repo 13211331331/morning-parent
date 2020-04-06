@@ -13,15 +13,15 @@
           </div>
           <div class="box-bd J_brickBd">
             <div class="row">
-              <div class="span4 span-first">
+             <!-- <div class="span4 span-first">
                 <ul class="brick-promo-list clearfix">
                   <c:forEach items="${category.categoryAdverts}" var="categoryAdvert">
                     <li class="brick-item2 brick-item-m" data-gid="${categoryAdvert.categoryAdvertId}"> <a title="${categoryAdvert.title}" href="${categoryAdvert.href}" target="_blank"><img src="${ctximg}/${categoryAdvert.picImg}" alt="${categoryAdvert.title}"></a> </li>
                   </c:forEach>
                 </ul>
-              </div>
-              <div class="span16">
-                <ul class="brick-list clearfix">
+              </div>-->
+              <div class="span16" style="width: 100%;">
+                <ul class="brick-list clearfix" style="width: 100%;">
                   <c:forEach items="${category.products}" var="product">
                     <li class="brick-item brick-item-m brick-item-m-2" data-gid="${product.productNumber}">
                       <div class="figure figure-img"> <a target="_blank" title="${product.name}" href="${ctx}/detail/${product.productNumber}"> <img src="${ctximg}/${product.picImg}" width="160" height="160" alt="${product.name}"> </a> </div>

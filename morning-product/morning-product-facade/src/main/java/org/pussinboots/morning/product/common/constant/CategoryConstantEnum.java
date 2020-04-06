@@ -12,7 +12,7 @@ package org.pussinboots.morning.product.common.constant;
 public enum CategoryConstantEnum {
 	
 	/** 分类推荐显示产品数量 */
-	CATEGORY_RECOMMEND_PRODUCT(8, "分类推荐显示产品数量"),
+	CATEGORY_RECOMMEND_PRODUCT(10, "分类推荐显示产品数量"),
 	
 	/** 分类推荐显示广告数量 */
 	CATEGORY_RECOMMEND_ADVERT(2, "类目广告显示数量"),
