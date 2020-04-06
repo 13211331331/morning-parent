@@ -43,17 +43,17 @@ public class WebFrontController extends BaseController {
 	@GetMapping(value = "/index")
 	public String index(Model model) {
 		
-		// 首页-广告栏-左部导航栏
+		// 首页-广告栏-左部导航栏(导航下面在连接)
 		List<NavigationBar> indexAdvertLeft = navigationBarService
 				.listByNavigationId(NavigationBarTypeEnum.INDEX_ADVERT_LEFT.getType());
 		model.addAttribute("indexAdvertLeft", indexAdvertLeft);
 
-		// 首页轮播广告列表
+		// 首页轮播广告列表(轮播)
 		List<AdvertDetail> indexCarouselImgs = advertDetailService
 				.listByAdvertId(AdvertTypeEnum.INDEX_CAROUSEL.getType());
 		model.addAttribute("indexCarouselImgs", indexCarouselImgs);
 
-		// 首页热点广告列表
+		// 首页热点广告列表（轮播下面）
 		List<AdvertDetail> indexHotAdvertImgs = advertDetailService
 				.listByAdvertId(AdvertTypeEnum.INDEX_HOT_ADVERT.getType());
 		model.addAttribute("indexHotAdvertImgs", indexHotAdvertImgs);
