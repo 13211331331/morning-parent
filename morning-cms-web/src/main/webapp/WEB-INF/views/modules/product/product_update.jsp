@@ -18,7 +18,7 @@
           <div class="ibox-tools"> <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i class="fa fa-times"></i></a> </div>
         </div>
         <div class="ibox-content">
-          <form id="form" class="form-horizontal" action="${ctx}/product/list/${product.productId}" data-method="put">
+          <form id="form" class="form-horizontal" action="${ctx}/product/list/${product.productId}/edit" data-method="post">
             <div class="form-group m-t">
               <label class="col-sm-2 col-xs-offset-1 control-label">商品编码：</label>
               <div class="col-sm-7">
