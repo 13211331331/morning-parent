@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
 <%@ include file="/WEB-INF/layouts/base.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -71,7 +72,7 @@
             <div class="form-group m-t">
               <label class="col-sm-2 col-xs-offset-1 control-label">价格：</label>
               <div class="col-sm-7">
-                <input type="number" class="form-control" name="showPrice" value="${product.showPrice}">
+                <input type="number" class="form-control" name="showPrice" value="<fmt:formatNumber type="number" value="${product.showPrice}" pattern="0.00" maxFractionDigits="0"/>">
               </div>
             </div>
             <div class="hr-line-dashed"></div>
