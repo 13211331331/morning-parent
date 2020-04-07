@@ -313,11 +313,32 @@ $(function() {
  */
 $(function() {
     $('.upload-button').on("click", function() {
-        parent.layer.msg("图片上传成功!", {
-            shade : 0.3,
-            time : 1500
+        var formData = new FormData();
+        formData.append('advert_file', $('input[type="file"]')[0].files[0]);
+        $.ajax({
+            url : baselocation + '/uploads/advert',
+            type : 'post',
+            cache : false,
+            data : formData,
+            processData : false, //因为data值是FormData对象,不需要对数据做处理
+            contentType : false, //因为是由<form>表单构造的FormData对象,且已经声明了属性enctype="multipart/form-data",所以这里设置为false
+            success : function(result) {
+                if (result.code == 1) {
+                    parent.layer.msg("图片上传成功!", {
+                        shade : 0.3,
+                        time : 1500
+                    });
+                    $('input[name="picImg"]').val(result.data);
+                    $('.view-button').show();
+                } else {
+                    layer.msg(result.message, {
+                        icon : 2,
+                        time : 1000
+                    });
+                }
+            }
         });
-        $('input[name="picImg"]').val("images/goods/20170226/1471797894445.jpg");
+
     })
 })
 
