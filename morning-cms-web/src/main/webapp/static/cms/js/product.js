@@ -85,7 +85,7 @@ function status_stop(index, value) {
 	}, function() {
 		$.ajax({
 			dataType : 'json',
-			type : 'put',
+			type : 'post',
 			url : baselocation + '/product/list/' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
@@ -118,7 +118,7 @@ function status_start(index, value) {
 	}, function() {
 		$.ajax({
 			dataType : 'json',
-			type : 'put',
+			type : 'post',
 			url : baselocation + '/product/list/' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
@@ -247,9 +247,10 @@ $(function() {
             params += $form.serialize();
             params += "&categoryId=" + categoryId;
 
-			var method = $('#form').attr('data-method');
+			var action = $form.attr('action');
+			alert(action);
 			// Use Ajax to submit form data
-			if (method == 'put') {
+			if (action.indexOf('edit') !=-1) {
 				$.ajax({
 					data : params,
 					dataType : 'json',
@@ -271,7 +272,7 @@ $(function() {
 						}
 					}
 				})
-			} else if (method == 'post') {
+			} else if (action.indexOf('create') !=-1) {
 				$.ajax({
 					data : $form.serialize(),
 					dataType : 'json',
