@@ -2615,7 +2615,7 @@ INSERT INTO `os_product_image` VALUES ('6', '1', 'images/goods/20170304/14717983
 -- ----------------------------
 DROP TABLE IF EXISTS `os_product_parameter`;
 CREATE TABLE `os_product_parameter` (
-  `product_parameter_id` bigint(20) NOT NULL COMMENT '参数ID',
+  `product_parameter_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '参数ID',
   `product_id` bigint(20) DEFAULT NULL COMMENT '商品ID',
   `name` varchar(64) DEFAULT NULL COMMENT '参数名',
   `value` varchar(64) DEFAULT NULL COMMENT '参数值',
