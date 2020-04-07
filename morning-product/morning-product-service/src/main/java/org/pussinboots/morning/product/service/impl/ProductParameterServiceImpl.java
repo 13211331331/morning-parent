@@ -58,7 +58,12 @@ public class ProductParameterServiceImpl extends ServiceImpl<ProductParameterMap
                 productParameter.setUpdateTime(new Date());
                 productParameters.add(productParameter);
             }
-            count=productParameterMapper.insertProductParameters(productParameters);
+            for (ProductParameter productParameter:productParameters){
+                productParameterMapper.insert(productParameter);
+            }
+            return productParameters.size();
+
+            //count=productParameterMapper.insertProductParameters(productParameters);
         }
         return count;
     }
