@@ -77,7 +77,7 @@ public class ProductController extends BaseController {
      */
     @ApiOperation(value = "启用/冻结产品", notes = "根据url产品ID启动/冻结产品")
     @RequiresPermissions("product:list:audit")
-    @PutMapping(value = "/{productId}/audit")
+    @PostMapping(value = "/{productId}/audit")
     @ResponseBody
     public Object audit(@PathVariable("productId") Long productId) {
         AuthorizingUser authorizingUser = SingletonLoginUtils.getUser();
@@ -125,7 +125,7 @@ public class ProductController extends BaseController {
      */
     @ApiOperation(value = "更新商品页面", notes = "更新商品页面")
     @RequiresPermissions("product:list:edit")
-    @PutMapping(value = "/{productId}")
+    @PostMapping(value = "/{productId}/edit")
     @ResponseBody
     public Object update(@PathVariable("productId") Long productId, Product product,Long categoryId,String paramNames,String paramValues) {
         AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
@@ -169,7 +169,7 @@ public class ProductController extends BaseController {
      */
     @ApiOperation(value = "创建商品页面", notes = "创建商品页面")
     @RequiresPermissions("product:list:add")
-    @PutMapping(value = "")
+    @PostMapping(value = "/create")
     @ResponseBody
     public Object update(Product product,Long categoryId,String paramNames,String paramValues) {
         AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
