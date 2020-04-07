@@ -248,13 +248,12 @@ $(function() {
             params += "&categoryId=" + categoryId;
 
 			var action = $form.attr('action');
-			alert(action);
 			// Use Ajax to submit form data
 			if (action.indexOf('edit') !=-1) {
 				$.ajax({
 					data : params,
 					dataType : 'json',
-					type : 'put',
+					type : 'post',
 					url : $form.attr('action'),
 					success : function(result) {
 						if (result.code == 1) {
