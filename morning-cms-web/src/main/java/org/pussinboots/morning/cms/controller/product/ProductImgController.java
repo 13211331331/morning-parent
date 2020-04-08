@@ -152,4 +152,30 @@ public class ProductImgController extends BaseController {
     }
 
 
+    /**
+     * PUT 启用/冻结产品
+     * @return
+     */
+    @ApiOperation(value = "启用/冻结产品", notes = "根据url产品ID启动/冻结产品")
+    @RequiresPermissions("product:list:audit")
+    @PostMapping(value = "/{picImgId}/audit")
+    @ResponseBody
+    public Object audit(@PathVariable("picImgId") Long picImgId) {
+        AuthorizingUser authorizingUser = SingletonLoginUtils.getUser();
+        if (authorizingUser != null) {
+            ProductImage p = productImageService.selectById(picImgId);
+            if(0 == p.getStatus()){
+                p.setStatus(1);
+            }
+            if(1 == p.getStatus()){
+                p.setStatus(0);
+            }
+            productImageService.updateById(p);
+            return new CmsResult(CommonReturnCode.SUCCESS, 1);
+        } else {
+            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
+        }
+    }
+
+
 }

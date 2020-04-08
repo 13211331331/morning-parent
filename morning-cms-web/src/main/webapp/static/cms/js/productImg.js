@@ -24,12 +24,12 @@ function labelIdFormatter(value) {
 	}
 }
 
-function showInShelveFormatter(value) {
+function showTypeFormatter(value) {
     if (value == 1){
-        return '<span class="label label-info">已上架</span>'
+        return '主要展示'
     }
-    else if (value == 0){
-        return '<span class="label label-warning">已下架</span>'
+    else if (value == 2){
+        return '详情展示'
     }
 }
 
@@ -90,7 +90,7 @@ function status_stop1(index, value) {
 		$.ajax({
 			dataType : 'json',
 			type : 'post',
-			url : baselocation + '/product/list/image/' + value + '/audit',
+			url : baselocation + '/product/image/' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
 					$('#table').bootstrapTable('updateRow', {
@@ -127,7 +127,7 @@ function status_remove(index, value) {
 		$.ajax({
 			dataType : 'json',
 			type : 'post',
-			url : baselocation + '/product/list/image/' + value + '/delete',
+			url : baselocation + '/product/image/' + value + '/del',
 			success : function(result) {
 				if (result.code == 1) {
 					$('#table').bootstrapTable('updateRow', {
@@ -160,7 +160,7 @@ function status_start1(index, value) {
 		$.ajax({
 			dataType : 'json',
 			type : 'post',
-			url : baselocation + '/product/list/image' + value + '/audit',
+			url : baselocation + '/product/image' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
 					$('#table').bootstrapTable('updateRow', {

@@ -46,7 +46,7 @@
                          data-toolbar="#toolbar">
                     <thead>
                       <tr>
-                        <th data-field="type" data-halign="center" data-align="center" data-sortable="true">类型</th>
+                        <th data-field="type"  data-formatter="showTypeFormatter" data-halign="center" data-align="center" data-sortable="true">类型</th>
                         <th data-field="picImg" data-formatter="picImgFormatter" data-halign="center" data-align="left" data-sortable="true">图片</th>
                         <th data-field="sort" data-halign="center" data-align="center" data-sortable="true">排序</th>
                         <th data-formatter="actionFormatter1" data-events="actionEvents" data-halign="center" data-align="center" data-sortable="true">操作</th>
