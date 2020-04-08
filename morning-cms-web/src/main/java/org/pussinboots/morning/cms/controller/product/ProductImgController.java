@@ -164,10 +164,11 @@ public class ProductImgController extends BaseController {
         AuthorizingUser authorizingUser = SingletonLoginUtils.getUser();
         if (authorizingUser != null) {
             ProductImage p = productImageService.selectById(picImgId);
-            if(0 == p.getStatus()){
+            Integer a = p.getStatus();
+            if(0 == a){
                 p.setStatus(1);
             }
-            if(1 == p.getStatus()){
+            if(1 == a){
                 p.setStatus(0);
             }
             productImageService.updateById(p);

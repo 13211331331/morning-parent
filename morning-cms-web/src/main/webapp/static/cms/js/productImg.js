@@ -137,6 +137,7 @@ function status_remove(index, value) {
 						icon : 5,
 						time : 1000
 					});
+					window.location.reload(); // 刷新父页面
 				} else {
 					layer.alert(result.message, {
 						icon : 2
@@ -160,7 +161,7 @@ function status_start1(index, value) {
 		$.ajax({
 			dataType : 'json',
 			type : 'post',
-			url : baselocation + '/product/image' + value + '/audit',
+			url : baselocation + '/product/image/' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
 					$('#table').bootstrapTable('updateRow', {
