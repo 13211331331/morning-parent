@@ -23,6 +23,6 @@ public interface IProductImageService extends IService<ProductImage> {
 	 * @param status 状态
 	 * @return
 	 */
-	List<ProductImage> listByProductId(Long productId, Integer showNumber, Integer status);
+	List<ProductImage> listByProductId(Long productId, Integer type,Integer showNumber, Integer status);
 	
 }

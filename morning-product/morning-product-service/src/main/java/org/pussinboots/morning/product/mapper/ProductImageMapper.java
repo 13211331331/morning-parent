@@ -24,7 +24,8 @@ public interface ProductImageMapper extends BaseMapper<ProductImage> {
 	 * @param status 图片状态
 	 * @return
 	 */
-	List<ProductImage> listByProductId(@Param("productId") Long productId, @Param("showNumber") Integer showNumber,
+	List<ProductImage> listByProductId(@Param("productId") Long productId, @Param("type") Integer type,
+									   @Param("showNumber") Integer showNumber,
 			@Param("status") Integer status);
 
 }

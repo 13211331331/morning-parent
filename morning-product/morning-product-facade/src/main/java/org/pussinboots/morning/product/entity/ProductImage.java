@@ -53,6 +53,16 @@ public class ProductImage extends Model<ProductImage> {
 	@TableField("create_by")
 	private String createBy;
 
+	private Integer type;
+
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
 	public Long getPicImgId() {
 		return picImgId;

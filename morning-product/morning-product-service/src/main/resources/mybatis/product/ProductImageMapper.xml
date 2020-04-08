@@ -11,6 +11,7 @@
 		<result column="status" property="status" />
 		<result column="create_time" property="createTime" />
 		<result column="create_by" property="createBy" />
+		<result column="type" property="type" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
@@ -29,8 +30,12 @@
     	WHERE
     		product_id = #{productId}
     	AND status = #{status}
+    	AND type = #{type}
     	ORDER BY 
     		sort
-    	LIMIT #{showNumber}
+		<if test="showNumber != null">
+			LIMIT #{showNumber}
+		</if>
+
     </select>    
 </mapper>

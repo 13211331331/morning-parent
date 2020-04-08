@@ -5,6 +5,7 @@ import java.util.List;
 import org.pussinboots.morning.common.base.BaseController;
 import org.pussinboots.morning.common.enums.StatusEnum;
 import org.pussinboots.morning.product.common.constant.ProductConstantEnum;
+import org.pussinboots.morning.product.common.enums.ImageTypeEnum;
 import org.pussinboots.morning.product.entity.Category;
 import org.pussinboots.morning.product.entity.ProductAttribute;
 import org.pussinboots.morning.product.entity.ProductImage;
@@ -76,8 +77,16 @@ public class ProductDetailController extends BaseController {
 			
 			// 根据商品ID查找商品展示图片
 			List<ProductImage> productImages = productImageService.listByProductId(product.getProductId(),
+					ImageTypeEnum.IMG_PRODUCT_MAIN.getType(),
 					ProductConstantEnum.PRODUCT_PICIMG_NUMBER.getValue(), StatusEnum.SHOW.getStatus());
 			model.addAttribute("productImages", productImages);
+
+			// 根据商品ID查找商品展示图片
+			List<ProductImage> productDetailImages = productImageService.listByProductId(product.getProductId(),
+					ImageTypeEnum.IMG_PRODUCT_DETAIL.getType(),
+					null, StatusEnum.SHOW.getStatus());
+			model.addAttribute("productDetailImages", productDetailImages);
+
 			
 			// 根据商品ID查找商品参数
 			List<ProductParameter> productParameters = productParameterService.listByProductId(product.getProductId(),

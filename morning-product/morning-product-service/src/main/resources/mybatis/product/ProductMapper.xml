@@ -56,11 +56,9 @@
 	        page_title AS pageTitle, 
 	        page_description AS pageDescription, 
 	        page_keyword AS pageKeyword, 
-   	        label_name AS labelName,
-   	        description
+   	        label_name AS labelName
    	    FROM
    	    	os_product p
-   	    LEFT JOIN os_product_detail d ON p.product_id = d.product_id
    	    LEFT JOIN (
 	    	SELECT
 	    		label_id,

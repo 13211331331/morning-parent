@@ -26,8 +26,8 @@ public class ProductImageServiceImpl extends ServiceImpl<ProductImageMapper, Pro
 	private ProductImageMapper productImageMapper;
 	
 	@Override
-	public List<ProductImage> listByProductId(Long productId, Integer showNumber, Integer status) {
-		return productImageMapper.listByProductId(productId, showNumber, status);
+	public List<ProductImage> listByProductId(Long productId, Integer type,Integer showNumber, Integer status) {
+		return productImageMapper.listByProductId(productId,type, showNumber, status);
 	}
 	
 }
