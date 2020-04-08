@@ -409,7 +409,7 @@ $(function() {
 					url : $form.attr('action'),
 					success : function(result) {
 						if (result.code == 1) {
-							parent.layer.msg("更新商品成功!", {
+							parent.layer.msg("更新成功!", {
 								shade : 0.3,
 								time : 1500
 							}, function() {
@@ -431,7 +431,7 @@ $(function() {
 					url : $form.attr('action'),
 					success : function(result) {
 						if (result.code == 1) {
-							parent.layer.msg("创建商品成功!", {
+							parent.layer.msg("创建成功!", {
 								shade : 0.3,
 								time : 1500
 							}, function() {

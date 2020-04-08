@@ -34,6 +34,7 @@
               <label class="col-sm-2 col-xs-offset-1 control-label">排序：</label>
               <div class="col-sm-7">
                 <input type="text" class="form-control" name="sort" value="${productImage.sort}">
+                <input type="hidden" name="productId" value="${productId}">
               </div>
             </div>
             <div class="hr-line-dashed"></div>
