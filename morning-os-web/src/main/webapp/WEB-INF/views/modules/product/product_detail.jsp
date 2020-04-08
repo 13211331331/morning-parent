@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
 <%@ include file="/WEB-INF/layouts/base.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +103,18 @@
     <div class="goods-detail-desc J_itemBox" id="goodsDesc" style="display: block;">
       <div class="container">
         <div class="shape-container">
-          <p class="detailBlock"> ${product.description} </p>
+          <p class="detailBlock">
+              <c:forEach items="${productDetailImages}" var="productImage">
+                <c:choose>
+                  <c:when test="${fn:startsWith(productImage.picImg, 'images/')}">
+                    <img src="${ctximg}/${productImage.picImg}">
+                  </c:when>
+                  <c:otherwise>
+                  <img src="${productImage.picImg}">
+                  </c:otherwise>
+                </c:choose>
+              </c:forEach>
+          </p>
         </div>
       </div>
     </div>
