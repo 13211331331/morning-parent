@@ -45,11 +45,7 @@ public class ProductVO implements Serializable{
      * 商品简介
      */
 	private String introduce;
-	
-	/**
-	 * 商品描述 
-	 */
-	private String description;
+
 	
     /**
      * 展示图片
@@ -136,15 +132,7 @@ public class ProductVO implements Serializable{
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}
-	
-	
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public String getPicImg() {
 		return picImg;
