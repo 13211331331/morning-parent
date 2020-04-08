@@ -2,7 +2,11 @@ package org.pussinboots.morning.product.mapper;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
+import org.pussinboots.morning.common.support.page.PageInfo;
+import org.pussinboots.morning.product.entity.Product;
 import org.pussinboots.morning.product.entity.ProductImage;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -28,4 +32,6 @@ public interface ProductImageMapper extends BaseMapper<ProductImage> {
 									   @Param("showNumber") Integer showNumber,
 			@Param("status") Integer status);
 
+    List<ProductImage> listByPage(@Param("pageInfo") PageInfo pageInfo, @Param("search") String search,
+								  @Param("productId") Long productId, RowBounds rowBounds);
 }

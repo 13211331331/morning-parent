@@ -48,6 +48,8 @@ public class ProductController extends BaseController {
     private IProductCategoryService productCategoryService;
     @Autowired
     private IProductParameterService productParameterService;
+    @Autowired
+    private IProductImageService productImageService;
 
 
     /**
@@ -60,6 +62,33 @@ public class ProductController extends BaseController {
     public String getProductPage(Model model) {
         return "/modules/product/product_list";
     }
+
+
+
+    /**
+     * GET 分类管理页面
+     * @return
+     */
+    @ApiOperation(value = "产品图片", notes = "产品图片管理页面")
+    @RequiresPermissions("product:list:view")
+    @GetMapping(value = "/{productId}/detail/view")
+    public String detailView(Model model,@PathVariable("productId") Long productId) {
+        model.addAttribute("productId",productId);
+        return "/modules/product/product_images";
+    }
+
+
+    @ApiOperation(value = "获取产品列表", notes = "根据分页信息/搜索内容获取产品列表")
+    @RequiresPermissions("product:list:view")
+    @GetMapping(value = "/{productId}/detail/view/images")
+    @ResponseBody
+    public Object listProductImages(PageInfo pageInfo, @PathVariable("productId") Long productId,
+                                    @RequestParam(required = false, value = "search") String search){
+        BasePageDTO<ProductImage> basePageDTO = productImageService.listByPage(pageInfo, search,productId);
+        return new CmsPageResult(basePageDTO.getList(), basePageDTO.getPageInfo().getTotal());
+    }
+
+
 
 
     @ApiOperation(value = "获取产品列表", notes = "根据分页信息/搜索内容获取产品列表")
