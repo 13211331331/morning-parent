@@ -192,6 +192,19 @@ public class ProductController extends BaseController {
         return "/modules/product/product_create";
     }
 
+
+    /**
+     * @return
+     */
+    @RequiresPermissions("product:list:add")
+    @GetMapping(value = "/image/{productId}/create")
+    public String getImageCreatePage(@PathVariable("productId") Long productId,Model model) {
+        model.addAttribute("productId",productId);
+        return "/modules/product/product_image_create";
+    }
+
+
+
     /**
      * PUT 创建商品
      * @return
@@ -213,4 +226,78 @@ public class ProductController extends BaseController {
             return new CmsResult(CommonReturnCode.UNAUTHORIZED);
         }
     }
+
+
+
+    /**
+     * @return
+     */
+    @RequiresPermissions("product:list:add")
+    @PostMapping(value = "/image/create")
+    @ResponseBody
+    public Object imageCreate(ProductImage productImage) {
+        AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
+        if (authorizingUser!=null){
+             productImageService.insert(productImage);
+            return new CmsResult(CommonReturnCode.SUCCESS,1);
+        }else {
+            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
+        }
+    }
+
+
+
+
+    /**
+     * GET 更新商品页面
+     * @return
+     */
+    @ApiOperation(value = "更新商品页面", notes = "更新商品页面")
+    @RequiresPermissions("product:list:edit")
+    @GetMapping(value = "/image/{picImgId}/edit")
+    public String getUpdateImagePage(Model model, @PathVariable("picImgId") Long picImgId) {
+        ProductImage productImage = productImageService.selectById(picImgId);
+        model.addAttribute("productImage", productImage);
+        return "/modules/product/product_image_update";
+    }
+
+    /**
+     * PUT 更新商品
+     * @return
+     */
+    @ApiOperation(value = "更新商品页面", notes = "更新商品页面")
+    @RequiresPermissions("product:list:edit")
+    @PostMapping(value = "/image/{picImgId}/edit")
+    @ResponseBody
+    public Object updateImage(@PathVariable("picImgId") Long picImgId, ProductImage productImage) {
+        AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
+        if (authorizingUser!=null){
+            productImage.setPicImgId(picImgId);
+             productImageService.updateById(productImage);
+            return new CmsResult(CommonReturnCode.SUCCESS,1);
+        }else {
+            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
+        }
+    }
+
+
+    /**
+     * PUT 更新商品
+     * @return
+     */
+    @ApiOperation(value = "更新商品页面", notes = "更新商品页面")
+    @RequiresPermissions("product:list:edit")
+    @PostMapping(value = "/image/{picImgId}/del")
+    @ResponseBody
+    public Object delImage(@PathVariable("picImgId") Long picImgId) {
+        AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
+        if (authorizingUser!=null){
+            productImageService.deleteById(picImgId);
+            return new CmsResult(CommonReturnCode.SUCCESS,1);
+        }else {
+            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
+        }
+    }
+
+
 }

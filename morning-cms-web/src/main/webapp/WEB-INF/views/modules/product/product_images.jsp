@@ -24,7 +24,7 @@
                   <div id="toolbar" class="btn-group m-t-sm">
                     <button type="button" class="btn btn-default"  title="返回上一页" onclick="goback();"> <i class="glyphicon glyphicon-circle-arrow-left"></i> </button>
                     <shiro:hasPermission name="product:list:add">
-                      <button type="button" class="btn btn-default"  title="创建产品" onclick="layer_show('创建产品','${ctx}/product/list/create','800','700')"> <i class="glyphicon glyphicon-plus"></i> </button>
+                      <button type="button" class="btn btn-default"  title="上传图片" onclick="layer_show('新增图片','${ctx}/product/list/image/${productId}/create','800','700')"> <i class="glyphicon glyphicon-plus"></i> </button>
                     </shiro:hasPermission>
                   </div>
                   <table id="table"
