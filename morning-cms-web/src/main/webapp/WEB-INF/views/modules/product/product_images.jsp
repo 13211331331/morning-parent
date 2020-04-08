@@ -24,7 +24,7 @@
                   <div id="toolbar" class="btn-group m-t-sm">
                     <button type="button" class="btn btn-default"  title="返回上一页" onclick="goback();"> <i class="glyphicon glyphicon-circle-arrow-left"></i> </button>
                     <shiro:hasPermission name="product:list:add">
-                      <button type="button" class="btn btn-default"  title="上传图片" onclick="layer_show('新增图片','${ctx}/product/list/image/${productId}/create','800','700')"> <i class="glyphicon glyphicon-plus"></i> </button>
+                      <button type="button" class="btn btn-default"  title="上传图片" onclick="layer_show('新增图片','${ctx}/product/image/${productId}/create','800','700')"> <i class="glyphicon glyphicon-plus"></i> </button>
                     </shiro:hasPermission>
                   </div>
                   <table id="table"
@@ -36,7 +36,7 @@
                          data-show-export="true"
                          data-show-pagination-switch="true"
                          data-show-columns="true"
-                         data-url="${ctx}/product/list/${productId}/detail/view/images"
+                         data-url="${ctx}/product/image/${productId}/data/view"
                          data-pagination="true"
                          data-page-size="20"
                          data-page-list="[20, 50, 100, 200]"
@@ -69,7 +69,7 @@
   <script src="${ctxsta}/common/bootstrap-table/tableExport.js"></script> 
   <script src="${ctxsta}/common/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script> 
   <!-- 自定义js --> 
-  <script src="${ctxsta}/cms/js/product.js"></script>
+  <script src="${ctxsta}/cms/js/productImg.js"></script>
   <script>
     function goback(){
       window.location = '${basePath}/product/list/view';

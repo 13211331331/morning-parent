@@ -18,12 +18,12 @@
           <div class="ibox-tools"> <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i class="fa fa-times"></i></a> </div>
         </div>
         <div class="ibox-content">
-          <form id="form" class="form-horizontal" action="${ctx}/product/list/image/create" data-method="post">
+          <form id="form" class="form-horizontal" action="${ctx}/product/image/create" data-method="post">
 
             <div class="form-group">
               <label class="col-sm-2 col-xs-offset-1 control-label">类型：</label>
               <div class="col-sm-6">
-                <select class="form-control" name="organizationId">
+                <select class="form-control" name="type">
                   <option value="1">主要展示</option>
                   <option value="2">详情展示</option>
                 </select>
@@ -33,7 +33,7 @@
             <div class="form-group m-t">
               <label class="col-sm-2 col-xs-offset-1 control-label">排序：</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control" name="sort" value="${productImage.sort}">
+                <input type="number" class="form-control" name="sort" value="${productImage.sort}">
                 <input type="hidden" name="productId" value="${productId}">
               </div>
             </div>
@@ -70,7 +70,7 @@
 <myfooter>
   <script src="${ctxsta}/common/switchery/switchery.min.js"></script>
   <!-- 自定义js --> 
-  <script src="${ctxsta}/cms/js/product.js"></script>
+  <script src="${ctxsta}/cms/js/productImg.js"></script>
 
   <!-- iCheck -->
   <script src="${ctxsta}/common/icheck/icheck.min.js"></script>

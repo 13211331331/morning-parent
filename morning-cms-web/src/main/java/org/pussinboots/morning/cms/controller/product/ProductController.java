@@ -64,33 +64,6 @@ public class ProductController extends BaseController {
     }
 
 
-
-    /**
-     * GET 分类管理页面
-     * @return
-     */
-    @ApiOperation(value = "产品图片", notes = "产品图片管理页面")
-    @RequiresPermissions("product:list:view")
-    @GetMapping(value = "/{productId}/detail/view")
-    public String detailView(Model model,@PathVariable("productId") Long productId) {
-        model.addAttribute("productId",productId);
-        return "/modules/product/product_images";
-    }
-
-
-    @ApiOperation(value = "获取产品列表", notes = "根据分页信息/搜索内容获取产品列表")
-    @RequiresPermissions("product:list:view")
-    @GetMapping(value = "/{productId}/detail/view/images")
-    @ResponseBody
-    public Object listProductImages(PageInfo pageInfo, @PathVariable("productId") Long productId,
-                                    @RequestParam(required = false, value = "search") String search){
-        BasePageDTO<ProductImage> basePageDTO = productImageService.listByPage(pageInfo, search,productId);
-        return new CmsPageResult(basePageDTO.getList(), basePageDTO.getPageInfo().getTotal());
-    }
-
-
-
-
     @ApiOperation(value = "获取产品列表", notes = "根据分页信息/搜索内容获取产品列表")
     @RequiresPermissions("product:list:view")
     @GetMapping(value = "/")
@@ -193,16 +166,6 @@ public class ProductController extends BaseController {
     }
 
 
-    /**
-     * @return
-     */
-    @RequiresPermissions("product:list:add")
-    @GetMapping(value = "/image/{productId}/create")
-    public String getImageCreatePage(@PathVariable("productId") Long productId,Model model) {
-        model.addAttribute("productId",productId);
-        return "/modules/product/product_image_create";
-    }
-
 
 
     /**
@@ -227,77 +190,6 @@ public class ProductController extends BaseController {
         }
     }
 
-
-
-    /**
-     * @return
-     */
-    @RequiresPermissions("product:list:add")
-    @PostMapping(value = "/image/create")
-    @ResponseBody
-    public Object imageCreate(ProductImage productImage) {
-        AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
-        if (authorizingUser!=null){
-             productImageService.insert(productImage);
-            return new CmsResult(CommonReturnCode.SUCCESS,1);
-        }else {
-            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
-        }
-    }
-
-
-
-
-    /**
-     * GET 更新商品页面
-     * @return
-     */
-    @ApiOperation(value = "更新商品页面", notes = "更新商品页面")
-    @RequiresPermissions("product:list:edit")
-    @GetMapping(value = "/image/{picImgId}/edit")
-    public String getUpdateImagePage(Model model, @PathVariable("picImgId") Long picImgId) {
-        ProductImage productImage = productImageService.selectById(picImgId);
-        model.addAttribute("productImage", productImage);
-        return "/modules/product/product_image_update";
-    }
-
-    /**
-     * PUT 更新商品
-     * @return
-     */
-    @ApiOperation(value = "更新商品页面", notes = "更新商品页面")
-    @RequiresPermissions("product:list:edit")
-    @PostMapping(value = "/image/{picImgId}/edit")
-    @ResponseBody
-    public Object updateImage(@PathVariable("picImgId") Long picImgId, ProductImage productImage) {
-        AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
-        if (authorizingUser!=null){
-            productImage.setPicImgId(picImgId);
-             productImageService.updateById(productImage);
-            return new CmsResult(CommonReturnCode.SUCCESS,1);
-        }else {
-            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
-        }
-    }
-
-
-    /**
-     * PUT 更新商品
-     * @return
-     */
-    @ApiOperation(value = "更新商品页面", notes = "更新商品页面")
-    @RequiresPermissions("product:list:edit")
-    @PostMapping(value = "/image/{picImgId}/del")
-    @ResponseBody
-    public Object delImage(@PathVariable("picImgId") Long picImgId) {
-        AuthorizingUser authorizingUser=SingletonLoginUtils.getUser();
-        if (authorizingUser!=null){
-            productImageService.deleteById(picImgId);
-            return new CmsResult(CommonReturnCode.SUCCESS,1);
-        }else {
-            return new CmsResult(CommonReturnCode.UNAUTHORIZED);
-        }
-    }
 
 
 }

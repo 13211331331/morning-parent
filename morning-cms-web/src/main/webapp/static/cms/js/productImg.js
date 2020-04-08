@@ -33,73 +33,73 @@ function showInShelveFormatter(value) {
     }
 }
 
-function actionFormatter(value, row, index) {
-	if (row.showInShelve == 1) {
+
+function actionFormatter1(value, row, index) {
+	if (row.status == 1) {
 		return [
-			'<a class="freeze m-r-sm text-info" href="javascript:void(0)" title="下架">',
+			'<a class="freeze1 m-r-sm text-info" href="javascript:void(0)" title="隐藏">',
 			'<i class="glyphicon glyphicon-pause"></i>',
 			'</a>',
-			'<a class="edit m-r-sm text-warning" href="javascript:void(0)" title="编辑">',
+			'<a class="edit1 m-r-sm text-warning" href="javascript:void(0)" title="编辑">',
 			'<i class="glyphicon glyphicon-edit"></i>',
 			'</a>',
-			'<a class="log m-r-sm text-primary" href="javascript:void(0)" title="产品图片">',
-			'<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>',
+			'<a class="remove1 m-r-sm text-warning" href="javascript:void(0)" title="删除">',
+			'<i class="glyphicon glyphicon-remove"></i>',
 			'</a>',
+
 		].join('');
 	} else {
 		return [
-			'<a class="normal m-r-sm text-info" href="javascript:void(0)" title="上架">',
+			'<a class="normal1 m-r-sm text-info" href="javascript:void(0)" title="显示">',
 			'<i class="glyphicon glyphicon-play"></i>',
 			'</a>',
-			'<a class="edit m-r-sm text-warning" href="javascript:void(0)" title="编辑">',
+			'<a class="edit1 m-r-sm text-warning" href="javascript:void(0)" title="编辑">',
 			'<i class="glyphicon glyphicon-edit"></i>',
 			'</a>',
-			'<a class="log m-r-sm text-primary" href="javascript:void(0)" title="产品图片">',
-			'<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>',
+			'<a class="remove1 m-r-sm text-warning" href="javascript:void(0)" title="删除">',
+			'<i class="glyphicon glyphicon-remove"></i>',
 			'</a>',
 		].join('');
 	}
 }
 
 
-
 window.actionEvents = {
-	'click .freeze' : function(e, value, row, index) {
-		status_stop(index, row.productId);
+	'click .freeze1' : function(e, value, row, index) {
+		status_stop1(index, row.picImgId);
 	},
-	'click .normal' : function(e, value, row, index) {
-		status_start(index, row.productId);
+	'click .normal1' : function(e, value, row, index) {
+		status_start1(index, row.picImgId);
 	},
-	'click .edit' : function(e, value, row, index) {
-		layer_show(row.name, baselocation + '/product/list/' + row.productId + '/edit', 900, 650)
+	'click .edit1' : function(e, value, row, index) {
+		layer_show(row.name, baselocation + '/product/image/' + row.picImgId + '/edit', 900, 650)
 	},
-	'click .log' : function(e, value, row, index) {
-		window.location.href = baselocation + '/product/image/' + row.productId + '/view';
+	'click .remove1' : function(e, value, row, index) {
+		status_remove(index, row.picImgId);
 	},
-
 
 };
 
 /**
  * 隐藏产品
  */
-function status_stop(index, value) {
-	layer.confirm('确认要下架该产品吗？', {
+function status_stop1(index, value) {
+	layer.confirm('确认要隐藏该图片吗？', {
 		btn : [ '确定', '取消' ] //按钮
 	}, function() {
 		$.ajax({
 			dataType : 'json',
 			type : 'post',
-			url : baselocation + '/product/list/' + value + '/audit',
+			url : baselocation + '/product/list/image/' + value + '/audit',
 			success : function(result) {
 				if (result.code == 1) {
 					$('#table').bootstrapTable('updateRow', {
 						index : index,
 						row : {
-                            showInShelve : 0,
+							status : 0,
 						}
 					});
-					layer.msg('该产品下架成功!', {
+					layer.msg('该图片隐藏成功!', {
 						icon : 5,
 						time : 1000
 					});
@@ -118,26 +118,23 @@ function status_stop(index, value) {
 
 
 /**
- * 上架产品
+ * 隐藏产品
  */
-function status_start(index, value) {
-	layer.confirm('确认要上架该产品吗？', {
+function status_remove(index, value) {
+	layer.confirm('确认要删除该图片吗？', {
 		btn : [ '确定', '取消' ] //按钮
 	}, function() {
 		$.ajax({
 			dataType : 'json',
 			type : 'post',
-			url : baselocation + '/product/list/' + value + '/audit',
+			url : baselocation + '/product/list/image/' + value + '/delete',
 			success : function(result) {
 				if (result.code == 1) {
 					$('#table').bootstrapTable('updateRow', {
-						index : index,
-						row : {
-                            showInShelve : 1,
-						}
+						index : index
 					});
-					layer.msg('该产品上架成功!', {
-						icon : 6,
+					layer.msg('该图片删除成功!', {
+						icon : 5,
 						time : 1000
 					});
 				} else {
@@ -151,6 +148,40 @@ function status_start(index, value) {
 }
 
 
+
+
+/**
+ * 上架产品
+ */
+function status_start1(index, value) {
+	layer.confirm('确认要显示该图片吗？', {
+		btn : [ '确定', '取消' ] //按钮
+	}, function() {
+		$.ajax({
+			dataType : 'json',
+			type : 'post',
+			url : baselocation + '/product/list/image' + value + '/audit',
+			success : function(result) {
+				if (result.code == 1) {
+					$('#table').bootstrapTable('updateRow', {
+						index : index,
+						row : {
+							status : 1,
+						}
+					});
+					layer.msg('该图片显示成功!', {
+						icon : 6,
+						time : 1000
+					});
+				} else {
+					layer.alert(result.message, {
+						icon : 2
+					});
+				}
+			}
+		})
+	});
+}
 
 
 /**
@@ -242,22 +273,8 @@ $(function() {
 
 			// Get the form instance
 			var $form = $(e.target);
-
-			// Get the BootstrapValidator instance
-			var bv = $form.data('bootstrapValidator');
-
-            ztreeObject = $.fn.zTree.getZTreeObj("ztree");
-            var nodes = ztreeObject.getCheckedNodes(true);
-            var categoryId = '';
-            if (nodes != null && nodes.length > 0) {
-                for (var i = 0; i < nodes.length; i++) {
-                    categoryId = nodes[i].categoryId;
-                }
-            }
             var params = '';
             params += $form.serialize();
-            params += "&categoryId=" + categoryId;
-
 			var action = $form.attr('action');
 			// Use Ajax to submit form data
 			if (action.indexOf('edit') !=-1) {
@@ -385,12 +402,7 @@ var setting = {
         radioType : "all"
     }
 };
-$(function() {
-    treedata = eval('(' + treedata + ')');
-    ztreeObject = $.fn.zTree.init($("#ztree"), setting, treedata);
-    //展开所有节点
-    ztreeObject.expandAll(true);
-})
+
 
 function deleteParamInput(index){
     $("#"+index).remove();
