@@ -2,6 +2,8 @@ package org.pussinboots.morning.product.service;
 
 import java.util.List;
 
+import org.pussinboots.morning.common.base.BasePageDTO;
+import org.pussinboots.morning.common.support.page.PageInfo;
 import org.pussinboots.morning.product.entity.ProductImage;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -24,5 +26,6 @@ public interface IProductImageService extends IService<ProductImage> {
 	 * @return
 	 */
 	List<ProductImage> listByProductId(Long productId, Integer type,Integer showNumber, Integer status);
-	
+
+    BasePageDTO<ProductImage> listByPage(PageInfo pageInfo, String search, Long productId);
 }
