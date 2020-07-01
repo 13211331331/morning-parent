@@ -55,7 +55,7 @@
 		<fastjson.version>1.2.30</fastjson.version>
 		<mybatis-plus.version>2.0.5</mybatis-plus.version>
 		<springfox-swagger.version>2.6.1</springfox-swagger.version>
-		<quartz.version>2.2.3</quartz.version>
+		<quartz.version>2.3.2</quartz.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<UserAgentUtils.version>1.20</UserAgentUtils.version>
 		<commons-io.version>2.5</commons-io.version>
