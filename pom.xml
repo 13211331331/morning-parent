@@ -52,7 +52,7 @@
 		<javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
 		<jstl.version>1.2</jstl.version>
 		<jackson-databind.version>2.8.7</jackson-databind.version>
-		<fastjson.version>1.2.30</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 		<mybatis-plus.version>2.0.5</mybatis-plus.version>
 		<springfox-swagger.version>2.6.1</springfox-swagger.version>
 		<quartz.version>2.2.3</quartz.version>
